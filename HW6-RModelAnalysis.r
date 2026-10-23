@@ -18,7 +18,6 @@ features <- c("radius_mean", "texture_mean", "perimeter_mean", "area_mean","smoo
 
 
 read_cell_data <- function(file) {
-  # Skip the entire header line, then read the data as whitespace-separated tokens.
   tokens <- scan(
     file,
     what = character(),
@@ -28,11 +27,9 @@ read_cell_data <- function(file) {
     skip = 1,
     quiet = TRUE
   )
-
-  # Each data record should contain 32 values:
-  # ID + diagnosis + 30 numeric features.
-  if (length(tokens) %% 32 != 0) {
-    stop(
+  
+# what little debugging i needed, i sniffed around for
+  if (length(tokens) %% 32 != 0) { stop(
       "Malformed data in: ", file,
       "\nTokens after header: ", length(tokens),
       "\nRemainder after grouping into 32-column records: ",
